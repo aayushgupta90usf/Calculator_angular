@@ -1,0 +1,75 @@
+<!-- /* This application is a simple calculator application based on angularjs where a user gives two number on text box defined
+** and on the basis of button click he will get the operation result below it.
+*/ -->
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script>
+
+/* First creating the Module of ng-app which is the body in this example and within that body we defined controller.
+** Controller method which defines the calculator operation that needs to be done after click on the button defined in the body.
+*/
+var app = angular.module('myCalc', []);
+app.controller('controller', function($scope){
+
+  // err variable for showing message when divide by zero  which is not allowed.
+  $scope.error = "";
+
+  $scope.add = function() {
+    $scope.result = +$scope.number1 + +$scope.number2;
+  }
+
+  $scope.subtract = function() {
+    $scope.result = $scope.number1 - $scope.number2;
+  }
+
+  $scope.multiply = function() {
+    $scope.result = $scope.number1 * $scope.number2;
+  }
+
+  $scope.divide = function() {
+    if($scope.number2 == 0) {
+      $scope.error="divide by 0 not allowed";
+      return;
+    }
+
+    $scope.result = $scope.number1 / $scope.number2;
+  }
+
+  $scope.change = function(e) {
+    if(e.number2) {
+      $scope.error = "";
+    }
+
+  }
+
+
+})
+
+</script>
+</head>
+<!--  Actual body which we defined as a ng-application And controller is defined inside an ng-application
+Expression is used so that on updation of numbers the result will be reflected in the text box.
+-->
+<body ng-app="myCalc">
+
+    <div> <h2> A simple calculator application </h2></div>
+
+    <div ng-controller="controller">
+      <p>Number1 : <input type="text" ng-model="number1" ng-init = "number1=0"></p>
+      <p>Number2 : <input type="text" ng-change ="change(this)"ng-model="number2" ng-init = "number2=0"><span style="color:red">{{error}}</span><br /></p>
+      <!-- <span ng-show=""> -->
+
+
+      <button class="btn btn-md btn-primary" ng-click="add()">Add</button>
+      <button class="btn btn-md btn-primary" ng-click="subtract()">Subtract</button>
+      <button class="btn btn-md btn-primary" ng-click="multiply()">Multiply</button>
+      <button class="btn btn-md btn-primary" ng-click="divide()">Divide</button>
+
+      <h3>Result: {{result}}</h3>
+    </div>
+
+</body>
+</html>
